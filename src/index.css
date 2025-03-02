@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@layer utilities {
+  #my-app {
+    @import "tailwindcss";
+  }
+}
+
+body {
+  @apply bg-gray-100;
+}
