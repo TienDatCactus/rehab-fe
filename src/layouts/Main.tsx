@@ -28,21 +28,22 @@ const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Header />
-      <Row
-        gutter={[6, { xs: 8, sm: 16, md: 24, lg: 32 }]}
-        className="max-h-dvh h-auto"
-      >
-        <Col span={4}>
-          <CustomLayoutMenu
-            defaultSelectedKeys={["1"]}
-            mode="inline"
-            items={items}
-          />
-        </Col>
-        <Col span={20}>
-          <Row gutter={[6, { xs: 8, sm: 16, md: 24, lg: 32 }]}>{children}</Row>
-        </Col>
-      </Row>
+      <main className="max-w-[1400px] mx-auto">
+        <Row gutter={[6, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
+          <Col span={4} className="max-h-screen">
+            <CustomLayoutMenu
+              defaultSelectedKeys={["1"]}
+              mode="inline"
+              items={items}
+            />
+          </Col>
+          <Col span={20}>
+            <Row gutter={[6, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
+              {children}
+            </Row>
+          </Col>
+        </Row>
+      </main>
       {/* <Footer /> */}
     </>
   );

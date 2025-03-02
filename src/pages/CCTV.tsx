@@ -99,7 +99,7 @@ const CCTV: React.FC = () => {
             controls={control}
             audio={audio}
             ref={webcamRef}
-            className="rounded-lg border border-[#ccc] shadow-lg w-full h-full object-cover z-50"
+            className="rounded-lg border border-[#ccc] shadow-lg  z-50"
           />
           {/* <div className="absolute bottom-2 py-1 w-full bg-white/30 backdrop-blur-sm ">
             <div className="px-4">
@@ -124,8 +124,8 @@ const CCTV: React.FC = () => {
           </div> */}
         </div>
       </Col>
-      <Col span={6}>
-        <div className="w-full h-full bg-white border border-[#d9d9d9]  rounded-lg p-2 [box-shadow:rgba(0,_0,_0,_0.16)_0px_3px_6px,_rgba(0,_0,_0,_0.23)_0px_3px_6px] z-0">
+      <Col span={6} className="max-h-screen">
+        <div className="w-full h-full bg-white border border-[#d9d9d9]  rounded-lg p-2 [box-shadow:rgba(0,_0,_0,_0.16)_0px_3px_6px,_rgba(0,_0,_0,_0.23)_0px_3px_6px] z-0 overflow-auto">
           <WebcamSidebarContent
             fps={fps}
             brightness={brightness}
@@ -141,6 +141,7 @@ const CCTV: React.FC = () => {
             setAudio={setAudio}
             control={control}
             setControl={setControl}
+            capture={capture}
           />
         </div>
       </Col>

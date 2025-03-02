@@ -43,6 +43,7 @@ interface WebcamSidebarContentProps {
   setAudio: (value: boolean) => void;
   control: boolean;
   setControl: (value: boolean) => void;
+  capture: () => void;
 }
 
 const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
@@ -60,13 +61,14 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
   setAudio,
   control,
   setControl,
+  capture,
 }) => {
   const [items, setItems] = useState<TabsProps["items"]>([
     {
       label: "Controls",
       key: "1",
       children: (
-        <div className="flex flex-col h-fit overflow-y-scroll p-2 z-0">
+        <div className="flex flex-col h-fit  p-2 z-0">
           <div className="flex items-center gap-1 my-2">
             <TreeStructure size={18} />
             <h1 className="font-semibold text-[1rem]">Parameters</h1>
@@ -184,8 +186,11 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
               <Slider
                 min={50}
                 max={150}
-                value={brightness}
-                onChange={(value) => setBrightness(value)}
+                tooltip={{
+                  formatter: (value) => `${value}%`,
+                }}
+                defaultValue={typeof brightness === "number" ? brightness : 0}
+                onChange={setBrightness}
               />
             </div>
 
@@ -196,7 +201,10 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
               <Slider
                 min={50}
                 max={150}
-                value={contrast}
+                tooltip={{
+                  formatter: (value) => `${value}%`,
+                }}
+                defaultValue={contrast}
                 onChange={setContrast}
               />
             </div>
@@ -208,11 +216,11 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
       label: "System",
       key: "2",
       children: (
-        <div className="flex flex-col h-screen overflow-auto p-2 z-0">
-          <Title level={5} style={{ marginBottom: 8 }}>
-            <Database size={18} style={{ marginRight: 6 }} />
-            System Status
-          </Title>
+        <div className="flex flex-col h-screen p-2 z-0">
+          <div className="flex items-center gap-1 my-2">
+            <Database size={18} />
+            <h1 className="font-semibold text-[1rem]"> System Status</h1>
+          </div>
           <div className="mb-4">
             <div className="mb-2">
               <div className="flex justify-between mb-1">
@@ -249,11 +257,11 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
           </div>
 
           <Divider style={{ margin: "8px 0" }} />
+          <div className="flex items-center gap-1 my-2">
+            <Bell size={18} />
+            <h1 className="font-semibold text-[1rem]"> Event Log</h1>
+          </div>
 
-          <Title level={5} style={{ marginBottom: 8 }}>
-            <Bell size={18} style={{ marginRight: 6 }} />
-            Event Log
-          </Title>
           <div className="border rounded p-2 bg-gray-50 h-24 overflow-y-auto mb-4 text-xs">
             {events.length > 0 ? (
               <List
@@ -276,11 +284,11 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
           </div>
 
           <Divider style={{ margin: "8px 0" }} />
+          <div className="flex items-center gap-1 my-2">
+            <Lightbulb size={18} />
+            <h1 className="font-semibold text-[1rem]">Quick Tips</h1>
+          </div>
 
-          <Title level={5} style={{ marginBottom: 8 }}>
-            <Lightbulb size={18} style={{ marginRight: 6 }} />
-            Quick Tips
-          </Title>
           <div className="bg-blue-50 p-2 rounded border border-blue-100 text-xs">
             <ul className="pl-4 space-y-1 text-blue-800">
               <li>
@@ -295,9 +303,9 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
             </ul>
           </div>
 
-          <div className="mt-auto pt-4">
+          <div className="my-2">
             <Space direction="vertical" style={{ width: "100%" }}>
-              <Button type="primary" block>
+              <Button type="primary" block onClick={capture}>
                 Capture Image
               </Button>
               <Button block>Start Recording</Button>
