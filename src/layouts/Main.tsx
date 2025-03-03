@@ -26,11 +26,11 @@ const items: MenuItem[] = [
 
 const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <>
-      <Header />
-      <main className="max-w-[1400px] mx-auto">
+    <div className="max-h-screen">
+      {/* <Header /> */}
+      <main className="max-w-[1800px] max-h-fit  mx-auto flex items-center justify-center">
         <Row gutter={[6, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
-          <Col span={4} className="max-h-screen">
+          <Col span={4}>
             <CustomLayoutMenu
               defaultSelectedKeys={["1"]}
               mode="inline"
@@ -45,7 +45,7 @@ const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
         </Row>
       </main>
       {/* <Footer /> */}
-    </>
+    </div>
   );
 };
 

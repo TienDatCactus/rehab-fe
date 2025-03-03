@@ -44,6 +44,8 @@ interface WebcamSidebarContentProps {
   control: boolean;
   setControl: (value: boolean) => void;
   capture: () => void;
+  mirror: boolean;
+  setMirror: (value: boolean) => void;
 }
 
 const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
@@ -62,13 +64,15 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
   control,
   setControl,
   capture,
+  mirror,
+  setMirror,
 }) => {
   const [items, setItems] = useState<TabsProps["items"]>([
     {
       label: "Controls",
       key: "1",
       children: (
-        <div className="flex flex-col h-fit  p-2 z-0">
+        <div className=" flex flex-col p-2 z-0">
           <div className="flex items-center gap-1 my-2">
             <TreeStructure size={18} />
             <h1 className="font-semibold text-[1rem]">Parameters</h1>
@@ -171,6 +175,13 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
                 onChange={() => setControl(!control)}
               />
             </div>
+            {/* <div className="flex items-center justify-between my-1">
+              <p className="text-[0.875rem] text-[#898989] my-1">Mirrored</p>
+              <Switch
+                defaultChecked={mirror}
+                onChange={() => setMirror(!mirror)}
+              />
+            </div> */}
           </div>
 
           <Divider style={{ margin: "8px 0" }} />
@@ -216,7 +227,7 @@ const WebcamSidebarContent: React.FC<WebcamSidebarContentProps> = ({
       label: "System",
       key: "2",
       children: (
-        <div className="flex flex-col h-screen p-2 z-0">
+        <div className="flex flex-col  p-2 z-0">
           <div className="flex items-center gap-1 my-2">
             <Database size={18} />
             <h1 className="font-semibold text-[1rem]"> System Status</h1>

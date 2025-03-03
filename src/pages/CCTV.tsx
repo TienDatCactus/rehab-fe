@@ -1,18 +1,8 @@
-import {
-  Camera,
-  CameraRotate,
-  Lightning,
-  Microphone,
-  Sliders,
-  VideoCamera,
-  XCircle,
-} from "@phosphor-icons/react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import MainLayout from "../layouts/Main";
-import { CustomWebcam, WebcamButton } from "../styles/Customs";
-import { Col } from "antd";
-import WebcamSidebarContent from "../components/Sidebar";
+import React, { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import WebcamSidebarContent from "../components/Sidebar";
+import MainLayout from "../layouts/Main";
+import { CustomWebcam } from "../styles/Customs";
 const CCTV: React.FC = () => {
   const webcamRef = useRef<Webcam | null>(null);
   const [fps, setFps] = useState(0);
@@ -28,6 +18,7 @@ const CCTV: React.FC = () => {
     height: 1080,
     facingMode: "user",
   });
+  const [mirror, setMirror] = useState(false);
   const [audio, setAudio] = useState(false);
   const [control, setControl] = useState(false);
   // Log events with timestamps
@@ -89,62 +80,70 @@ const CCTV: React.FC = () => {
   }, [webcamRef]);
   return (
     <MainLayout>
-      <Col span={18}>
-        <div className="relative  inset-0">
-          <div className="absolute top-2 left-2 ">
+      <div className="grid grid-cols-12 gap-1">
+        <div className="col-span-9 relative">
+          <div className="absolute top-2 left-2 z-10">
             <h1 className="">Camera-01</h1>
           </div>
           <CustomWebcam
+            mirrored={mirror}
             videoConstraints={videoConstraints}
             controls={control}
             audio={audio}
             ref={webcamRef}
-            className="rounded-lg border border-[#ccc] shadow-lg  z-50"
-          />
-          {/* <div className="absolute bottom-2 py-1 w-full bg-white/30 backdrop-blur-sm ">
-            <div className="px-4">
-              <ul className="flex gap-4 justify-center">
-                <WebcamButton shape="circle">
-                  <Camera size={20} />
-                </WebcamButton>
-                <WebcamButton shape="circle">
-                  <VideoCamera size={20} />
-                </WebcamButton>
-                <WebcamButton shape="circle">
-                  <Microphone size={20} />
-                </WebcamButton>
-                <WebcamButton shape="circle">
-                  <Sliders size={20} />
-                </WebcamButton>
-                <WebcamButton shape="circle">
-                  <XCircle size={20} />
-                </WebcamButton>
-              </ul>
-            </div>
-          </div> */}
-        </div>
-      </Col>
-      <Col span={6} className="max-h-screen">
-        <div className="w-full h-full bg-white border border-[#d9d9d9]  rounded-lg p-2 [box-shadow:rgba(0,_0,_0,_0.16)_0px_3px_6px,_rgba(0,_0,_0,_0.23)_0px_3px_6px] z-0 overflow-auto">
-          <WebcamSidebarContent
-            fps={fps}
-            brightness={brightness}
-            setBrightness={setBrightness}
-            contrast={contrast}
-            setContrast={setContrast}
-            events={events}
-            storageUsed={storageUsed}
-            motionDetected={motionDetected}
-            videoConstraints={videoConstraints}
-            setVideoConstraints={setVideoConstraints}
-            audio={audio}
-            setAudio={setAudio}
-            control={control}
-            setControl={setControl}
-            capture={capture}
+            className="object-cover  bg-no-repeat bg-center bg-cover min-w-full min-h-screen shadow-lg rounded-md"
           />
         </div>
-      </Col>
+        {/* <div className="absolute bottom-2 py-1 w-full bg-white/30 backdrop-blur-sm ">
+              <div className="px-4">
+                <ul className="flex gap-4 justify-center">
+                  <WebcamButton shape="circle">
+                    <Camera size={20} />
+                  </WebcamButton>
+                  <WebcamButton shape="circle">
+                    <VideoCamera size={20} />
+                  </WebcamButton>
+                  <WebcamButton shape="circle">
+                    <Microphone size={20} />
+                  </WebcamButton>
+                  <WebcamButton shape="circle">
+                    <Sliders size={20} />
+                  </WebcamButton>
+                  <WebcamButton shape="circle">
+                    <XCircle size={20} />
+                  </WebcamButton>
+                </ul>
+              </div>
+            </div> */}
+        <div className=" col-span-3 ">
+          <div
+            style={{
+              height: "100vh",
+            }}
+            className=" bg-white border border-[#d9d9d9]  rounded-lg p-2 [box-shadow:rgba(0,_0,_0,_0.16)_0px_3px_6px,_rgba(0,_0,_0,_0.23)_0px_3px_6px] z-0 overflow-auto"
+          >
+            <WebcamSidebarContent
+              fps={fps}
+              brightness={brightness}
+              setBrightness={setBrightness}
+              contrast={contrast}
+              setContrast={setContrast}
+              events={events}
+              storageUsed={storageUsed}
+              motionDetected={motionDetected}
+              videoConstraints={videoConstraints}
+              setVideoConstraints={setVideoConstraints}
+              audio={audio}
+              setAudio={setAudio}
+              control={control}
+              setControl={setControl}
+              capture={capture}
+              mirror={mirror}
+              setMirror={setMirror}
+            />
+          </div>
+        </div>
+      </div>
     </MainLayout>
   );
 };
